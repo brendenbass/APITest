@@ -6,7 +6,7 @@ const handler = async () => {
   
   const API_USER_ID = process.env.API_USER_ID
   const API_SECRET = process.env.API_SECRET
-  headers.set('Authorization', 'Basic ' + Buffer.from(API_USER_ID + ":" + API_SECRET).toString('base64'));
+  const headers = { Authorization: `Basic ${Buffer.from(`${API_USER_ID}:${API_SECRET}`, "utf-8").toString("base64")}` };
   const url = "https://api.planningcenteronline.com/calendar/v2/event_instances?per_page=4&order=starts_at&where[tag_ids]=214556&include=event&filter=future,approved";
 
   try {
