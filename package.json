@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "netlify": "^13.1.4"
+  },
+  "scripts": {
+    "dev": "http-server src -p 8080"
+  }
+}
