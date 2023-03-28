@@ -6,17 +6,43 @@ const handler = async () => {
   
   const API_USER_ID = process.env.API_USER_ID
   const API_SECRET = process.env.API_SECRET
-  const headers = { Authorization: `Basic ${Buffer.from(`${API_USER_ID}:${API_SECRET}`, "utf-8").toString("base64")}` };
-  const url = "https://api.planningcenteronline.com/calendar/v2/event_instances?per_page=4&order=starts_at&where[tag_ids]=214556&include=event&filter=future,approved";
-
   try {
-    const response = await fetch(url, { headers: headers })
 
-    var data = await response.json();
+
+
+    const https = require('https');
+
+    const username = API_USER_ID;
+    const password = API_SECRET;
+    
+    const options = {
+      hostname: 'https://api.planningcenteronline.com',
+      path: '/calendar/v2/event_instances?per_page=4&order=starts_at&where[tag_ids]=214556&include=event&filter=future,approved',
+      method: 'GET',
+      headers: {
+        'Authorization': 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
+      }
+    };
+    
+    const req = https.request(options, res => {
+      console.log(`statusCode: ${res.statusCode}`);
+    
+      res.on('data', d => {
+        process.stdout.write(d);
+      });
+    });
+    
+    req.on('error', error => {
+      console.error(error);
+    });
+    
+    req.end();
+    
+
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data)
+      body: JSON.stringify(req)
     }
 
   } catch (error) {
