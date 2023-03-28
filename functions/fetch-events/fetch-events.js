@@ -10,19 +10,7 @@ const handler = async () => {
 
   const url = 'https://api.planningcenteronline.com/calendar/v2/event_instances?where[event_name]=Ocala.Youth&include=event&filter=future,approved&order=starts_at&per_page=5';
 
-  var data;
-  axios.get(url, {
-    auth: {
-      username,
-      password
-    }
-  })
-    .then(response => {
-      data = response;
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  const {data} = axios.get(url, { auth: { username, password}})
 
   return {
     statusCode: 200,
