@@ -18,7 +18,7 @@ const handler = async () => {
     }
   })
     .then(response => {
-      data = response.data;
+      data = response;
     })
     .catch(error => {
       console.log(error);
