@@ -10,12 +10,22 @@ const handler = async () => {
 
   const url = 'https://api.planningcenteronline.com/calendar/v2/event_instances?where[event_name]=Ocala.Youth&include=event&filter=future,approved&order=starts_at&per_page=5'
 
-  const {data} = axios.get(url, { auth: {username, password}})
+  try {
+    const { data } = axios.get(url, { auth: { username, password } })
 
-  return {
-    statusCode: 200,
-    body: data.json()
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data)
+    }
+
+  } catch (error) {
+    const { status, statusText, headers, data } = error.response
+    return {
+      statusCode: status,
+      body: JSON.stringify({ status, statusText, headers, data })
+    }
   }
+
 }
 
 module.exports = { handler }
