@@ -8,9 +8,9 @@ const handler = async () => {
   const username = process.env.API_USER_ID
   const password = process.env.API_SECRET
 
-  const url = 'https://api.planningcenteronline.com/calendar/v2/event_instances?where[event_name]=Ocala.Youth&include=event&filter=future,approved&order=starts_at&per_page=5'
+  const url = 'https://api.planningcenteronline.com/calendar/v2/event_instances?filter=future%2Capproved&include=event&order=starts_at&per_page=5&where[event_name]=Ocala.Youth'
 
-  const {data} = axios.get(url, { auth: { username, password}})
+  const {data} = axios.get(url, { auth: {username, password}})
 
   return {
     statusCode: 200,
