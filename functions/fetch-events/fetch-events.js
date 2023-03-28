@@ -20,9 +20,9 @@ const handler = async () => {
     }
 
   } catch (error) {
-    const { status, statusText, headers, data } = error.response
+    console.log(error)
     return {
-      statusCode: status,
+      statusCode: 500,
       body: JSON.stringify({status, statusText, headers, data})
     }
   }
