@@ -22,8 +22,6 @@ const handler = async () => {
   } catch (error) {
     console.log(error)
     return {
-      statusCode: 500,
-      body: JSON.stringify({status, statusText, headers, data})
     }
   }
 }
