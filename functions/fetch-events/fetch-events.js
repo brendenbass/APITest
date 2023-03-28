@@ -3,52 +3,30 @@
 //   const API_SECRET = "3fb446ebf099196055056feaa74af8f4cd9c26068c1bb97ef917d9210d59cf8c"
 
 const handler = async () => {
+  const axios = require('axios');
   
-  const API_USER_ID = process.env.API_USER_ID
-  const API_SECRET = process.env.API_SECRET
-  try {
+  const username = process.env.API_USER_ID
+  const password = process.env.API_SECRET
 
+  const url = 'https://api.planningcenteronline.com/calendar/v2/event_instances?where[event_name]=Ocala.Youth&include=event&filter=future,approved&order=starts_at&per_page=5';
 
-
-    const https = require('https');
-
-    const username = API_USER_ID;
-    const password = API_SECRET;
-    
-    const options = {
-      hostname: 'https://api.planningcenteronline.com',
-      path: '/calendar/v2/event_instances?per_page=4&order=starts_at&where[tag_ids]=214556&include=event&filter=future,approved',
-      method: 'GET',
-      headers: {
-        'Authorization': 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
-      }
-    };
-    
-    const req = https.request(options, res => {
-      console.log(`statusCode: ${res.statusCode}`);
-    
-      res.on('data', d => {
-        process.stdout.write(d);
-      });
-    });
-    
-    req.on('error', error => {
-      console.error(error);
-    });
-    
-    req.end();
-    
-
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify(req)
+  var data;
+  axios.get(url, {
+    auth: {
+      username,
+      password
     }
+  })
+    .then(response => {
+      data = response.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
-  } catch (error) {
-    console.log(error)
-    return {
-    }
+  return {
+    statusCode: 200,
+    body: JSON.stringify(data)
   }
 }
 
