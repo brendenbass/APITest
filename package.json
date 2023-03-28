@@ -4,5 +4,8 @@
   },
   "scripts": {
     "dev": "http-server src -p 8080"
+  },
+  "dependencies": {
+    "netlify-cli": "^13.2.2"
   }
 }
